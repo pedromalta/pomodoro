@@ -1,0 +1,37 @@
+<resources>
+    <!-- Splash Theme. -->
+    <style name="Pomodoro.Splash" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg</item>
+    </style>
+
+    <style name="Pomodoro" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">17sp</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:buttonStyle">@style/Pomodoro.Button</item>
+    </style>
+
+    <style name="Pomodoro.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textColor">@color/button_text_color</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="Pomodoro.Button.Blue" parent="Pomodoro.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/button_background_blue</item>
+    </style>
+    
+    <style name="Pomodoro.Toolbar.TextAppearence" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+</resources>

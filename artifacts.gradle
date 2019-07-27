@@ -1,0 +1,15 @@
+android.applicationVariants.all { variant ->
+    def appName
+    //Check if an applicationName property is supplied; if not use the name of the parent project.
+    if (project.hasProperty("APP_NAME")) {
+        appName = APP_NAME
+    } else {
+        appName = parent.name
+    }
+ 
+    variant.outputs.all { output ->
+        def nameTokens = output.baseName.split("-");
+        def buildName = nameTokens[1]
+        outputFileName = "${appName}-${buildName}-v${variant.versionName}.apk"
+    }
+}

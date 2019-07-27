@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Pomodoro</string>
+
+    <!-- GENERIC ERROR -->
+    <string name="error_generic">Erro ao processar solicitação</string>
+
+    <!-- Validations -->
+    <string name="validate_empty">%1$s é obrigatório</string>
+    <string name="validate_confirm_password">Senhas não conferem</string>
+    <string name="validate_email">%1$s não é um e-mail válido</string>
+    <string name="validate_length">%1$s deve ter %2$d caracteres</string>
+
+    <string name="bt_sim">sim</string>
+    <string name="bt_nao">não</string>
+    <string name="bt_confirmar">confirmar</string>
+    <string name="bt_continuar">continuar</string>
+    <string name="bt_cancelar">cancelar</string>
+    <string name="menu_label_new">Novo</string>
+    <string name="menu_label_history">Histórico</string>
+
+
+</resources>
