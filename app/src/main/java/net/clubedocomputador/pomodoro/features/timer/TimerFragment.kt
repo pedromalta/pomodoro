@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import net.clubedocomputador.pomodoro.R
 import net.clubedocomputador.pomodoro.features.base.BaseFragment
 import net.clubedocomputador.pomodoro.features.principal.PrincipalTabbedView
+import net.clubedocomputador.pomodoro.util.Analytics
 
 class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
 
@@ -16,12 +17,12 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         presenter.attachView(this)
 
-
+        Analytics.logEvent(Analytics.EVENT_CONTENT_VIEW, Analytics.Contents.FRAGMENT_TIMER)
         return view
     }
 
     override fun getTabTitle(): String {
-        return context?.getString(R.string.menu_label_new) ?: "New"
+        return context?.getString(R.string.label_menu_new) ?: "New"
     }
 
     override fun getLayout(): Int {

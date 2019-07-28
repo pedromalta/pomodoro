@@ -27,12 +27,19 @@ import androidx.annotation.AttrRes
 import androidx.annotation.RawRes
 import androidx.annotation.StringRes
 import net.clubedocomputador.pomodoro.R
+import net.clubedocomputador.pomodoro.extensions.toDateTime
+import org.joda.time.DateTime
+import org.joda.time.Duration
+import org.joda.time.Period
+import org.joda.time.Seconds
+import org.joda.time.format.PeriodFormatterBuilder
+import java.text.DecimalFormat
 import java.util.*
 import java.util.regex.Pattern
 import kotlin.collections.HashMap
 
 
-object Ui {
+object Helpers {
 
     object Keyboard {
 
@@ -264,6 +271,51 @@ object Ui {
 
         fun formatWithYear(date: Date): String {
             return android.text.format.DateFormat.format("dd/MM/YYYY - hh:mm", date).toString()
+        }
+
+        fun isToday(now: DateTime, date: DateTime): Boolean {
+            return now.withTimeAtStartOfDay().isEqual(date.withTimeAtStartOfDay())
+        }
+
+        fun isYesterday(now: DateTime, date: DateTime): Boolean {
+            val oneDayBeforeDate = date.withTimeAtStartOfDay().minusDays(1)
+            return now.withTimeAtStartOfDay().isEqual(oneDayBeforeDate)
+        }
+
+        fun isThisWeek(now: DateTime, date: DateTime): Boolean {
+            return now.year == date.year && now.monthOfYear == date.monthOfYear && now.weekOfWeekyear == date.weekOfWeekyear
+        }
+
+        fun isThisMonth(now: DateTime, date: DateTime): Boolean {
+            return now.year == date.year && now.monthOfYear == date.monthOfYear
+        }
+
+        fun isThisYear(now: DateTime, date: DateTime): Boolean {
+            return now.year == date.year
+        }
+
+        fun getDurationString(start: Date, finished: Date): String{
+            val elapsed = Seconds.secondsBetween(finished.toDateTime(), start.toDateTime())
+            return getDurationString(elapsed.seconds)
+        }
+
+        fun getDurationString(durationSeconds: Int): String {
+            val period = Period(durationSeconds * 1000L)
+            val formatted = PeriodFormatterBuilder()
+                    .printZeroAlways()
+                    .minimumPrintedDigits(2)
+                    .appendMinutes()
+                    .appendSeparator(":")
+                    .appendSeconds()
+                    .toFormatter()
+            return formatted.print(period)
+
+        }
+
+        fun getElapsedTime(finishTime: DateTime): String {
+            val remaining = Seconds.secondsBetween(DateTime.now(), finishTime)
+            return getDurationString(remaining.seconds)
+
         }
     }
 

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import net.clubedocomputador.pomodoro.R
-import net.clubedocomputador.pomodoro.util.Ui
+import net.clubedocomputador.pomodoro.util.Helpers
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -24,20 +24,20 @@ abstract class BaseFragment : androidx.fragment.app.DialogFragment() {
     fun showMessage(message: String?) {
         val context = context ?: return
         if (message != null) {
-            Ui.Messages.message(context, message)
+            Helpers.Messages.message(context, message)
         }
     }
 
     fun showError(message: String?) {
         val context = context ?: return
         if (message != null) {
-            Ui.Messages.message(context, message)
+            Helpers.Messages.message(context, message)
         }
     }
 
     fun showGenericError() {
         context?.apply {
-            Ui.Messages.message(this, this.getString(R.string.error_generic))
+            Helpers.Messages.message(this, this.getString(R.string.error_generic))
         }
     }
 
@@ -51,7 +51,7 @@ abstract class BaseFragment : androidx.fragment.app.DialogFragment() {
         getProgressDialog()?.cancel()
         getProgressDialog()?.dismiss()
         val context = context ?: return
-        setProgressDialog(Ui.Dialogs.progress(context, message))
+        setProgressDialog(Helpers.Dialogs.progress(context, message))
 
     }
 
@@ -59,7 +59,7 @@ abstract class BaseFragment : androidx.fragment.app.DialogFragment() {
         getProgressDialog()?.cancel()
         getProgressDialog()?.dismiss()
         val context = context ?: return
-        setProgressDialog(Ui.Dialogs.progress(context, message, true, true))
+        setProgressDialog(Helpers.Dialogs.progress(context, message, true, true))
     }
 
     override fun onStart() {

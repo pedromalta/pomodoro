@@ -38,7 +38,6 @@ class PrincipalActivity : BaseActivity(), PrincipalMvpView {
         tabLayout = findViewById(R.id.tab_layout_main)
 
         setupViewPagerAdapter()
-        setupNestedScrollViewToWorkWithViewPager()
         setupTabLayout()
 
     }
@@ -47,10 +46,6 @@ class PrincipalActivity : BaseActivity(), PrincipalMvpView {
         viewPager.adapter =  PrincipalViewPagerAdapter(supportFragmentManager, arrayOf(timerFragment, historyFragment))
     }
 
-    private fun setupNestedScrollViewToWorkWithViewPager(){
-        val nestedScrolView: NestedScrollView = findViewById(R.id.nested_scroll_view_main)
-        nestedScrolView.isFillViewport = true
-    }
 
     private fun setupTabLayout(){
         tabLayout.setupWithViewPager(viewPager)

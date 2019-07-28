@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import net.clubedocomputador.pomodoro.R
 import net.clubedocomputador.pomodoro.messaging.Events
-import net.clubedocomputador.pomodoro.util.Ui
+import net.clubedocomputador.pomodoro.util.Helpers
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -24,18 +24,18 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun showMessage(message: String?) {
         if (message != null) {
-            Ui.Messages.message(this, message)
+            Helpers.Messages.message(this, message)
         }
     }
 
     fun showError(message: String?) {
         if (message != null) {
-            Ui.Messages.message(this, message)
+            Helpers.Messages.message(this, message)
         }
     }
 
     fun showGenericError() {
-        Ui.Messages.message(this, this.getString(R.string.error_generic))
+        Helpers.Messages.message(this, this.getString(R.string.error_generic))
     }
 
     fun hideLoading() {
@@ -46,13 +46,13 @@ abstract class BaseActivity : AppCompatActivity() {
     fun showLoading(@StringRes message: Int) {
         loadingDialog?.cancel()
         loadingDialog?.dismiss()
-        loadingDialog = Ui.Dialogs.progress(this, message, true, false)
+        loadingDialog = Helpers.Dialogs.progress(this, message, true, false)
     }
 
     fun showLoadingDismissible(@StringRes message: Int) {
         loadingDialog?.cancel()
         loadingDialog?.dismiss()
-        loadingDialog = Ui.Dialogs.progress(this, message)
+        loadingDialog = Helpers.Dialogs.progress(this, message)
     }
 
 

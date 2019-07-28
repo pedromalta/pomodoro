@@ -7,8 +7,7 @@
     android:orientation="vertical"
     tools:context=".features.principal.PrincipalActivity">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nested_scroll_view_main"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -16,11 +15,9 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/view_pager_main"
             android:layout_width="match_parent"
-            android:layout_height="400dp" />
+            android:layout_height="match_parent" />
 
-    </androidx.core.widget.NestedScrollView>
-
-
+    </FrameLayout>
 
     <com.google.android.material.appbar.AppBarLayout
         app:elevation="6dp"
@@ -32,16 +29,14 @@
             app:title="@string/app_name"
             app:titleTextAppearance="@style/Pomodoro.Toolbar.TextAppearence"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            android:layout_height="match_parent" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabTextColor="@color/grey"
-            app:tabSelectedTextColor="@android:color/white"
-            app:layout_scrollFlags="scroll|enterAlways" />
+            app:tabSelectedTextColor="@android:color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

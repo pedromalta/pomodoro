@@ -21,4 +21,5 @@
 # of the models that are JSON parsed using something like Jackson.
 
 -keep class br.com.vix.v1motorista.models.** { *; }
+-keep class br.com.vix.v1motorista.persistence.models.** { *; }
 

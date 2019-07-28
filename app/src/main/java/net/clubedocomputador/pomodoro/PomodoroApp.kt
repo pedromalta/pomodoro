@@ -10,10 +10,10 @@ import net.clubedocomputador.pomodoro.persistence.PersistenceProvider
 import net.clubedocomputador.pomodoro.util.Analytics
 
 
-class Pomodoro : Application() {
+class PomodoroApp : Application() {
 
     companion object {
-        lateinit var instance: Pomodoro
+        lateinit var instance: PomodoroApp
         lateinit var persistence: PersistenceProvider
     }
 

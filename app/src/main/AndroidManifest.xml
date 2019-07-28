@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="net.clubedocomputador.pomodoro.Pomodoro"
+        android:name="net.clubedocomputador.pomodoro.PomodoroApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -33,8 +33,10 @@
         </activity>
         <activity
             android:name="net.clubedocomputador.pomodoro.features.principal.PrincipalActivity" />
-        <activity
-            android:name="net.clubedocomputador.pomodoro.features.listararvores.ListarArvoresActivity" />
+
+        <service
+            android:name=".services.timer.TimerService"
+            android:enabled="true" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
