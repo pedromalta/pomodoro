@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -18,11 +20,13 @@ import org.jetbrains.anko.textColor
 import java.util.concurrent.TimeUnit
 import android.view.animation.TranslateAnimation
 import io.reactivex.android.schedulers.AndroidSchedulers
+import net.clubedocomputador.pomodoro.messaging.Events
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.image
 
 
 class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
-
 
     private val presenter = TimerPresenter()
 
@@ -43,9 +47,6 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
     }
 
     private fun setupTextViewTimer() {
-        val animObj = TranslateAnimation(0f, textViewTimer.width.toFloat(), 0f, 0f)
-        animObj.duration = 1000
-        textViewTimer.startAnimation(animObj)
         textViewTimer.text = presenter.getTimer()
         startTimerUpdates()
 
@@ -57,6 +58,7 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
                 .repeatUntil { !presenter.isPomodoroRunning() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { remainingTime ->
+                    //TODO animate?
                     textViewTimer.text = remainingTime
                 }.addTo(presenter.disposable)
     }
@@ -105,6 +107,14 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
         updateLayoutState()
     }
 
+    @Suppress("UNUSED")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvents(event: Events) {
+
+        when (event.action) {
+            Events.FINISHED_POMODORO -> stoppedPomodoro()
+        }
+    }
 
     override fun getTabTitle(): String {
         return context?.getString(R.string.label_menu_new) ?: "New"

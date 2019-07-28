@@ -9,7 +9,7 @@ import java.util.*
 
 class HistoryPresenter : BasePresenter<HistoryMvpView>() {
 
-    fun getList(fromDate: Date?): List<PomodoroHistory> {
+    fun getList(fromDate: Date? = null): List<PomodoroHistory> {
         return Pomodoro().query {
             isNotNull("finish")
             notEqualTo("status", Pomodoro.Status.Running.value)
