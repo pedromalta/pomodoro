@@ -315,8 +315,8 @@ object Helpers {
         fun getElapsedTime(finishTime: DateTime): String {
             val remaining = Seconds.secondsBetween(DateTime.now(), finishTime)
             return getDurationString(remaining.seconds)
-
         }
+
     }
 
     object Notifications {

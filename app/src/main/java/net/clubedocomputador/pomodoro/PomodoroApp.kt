@@ -7,6 +7,8 @@ import io.github.inflationx.viewpump.ViewPump
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import net.clubedocomputador.pomodoro.persistence.PersistenceProvider
+import net.clubedocomputador.pomodoro.services.timer.ITimerProvider
+import net.clubedocomputador.pomodoro.services.timer.TimerService
 import net.clubedocomputador.pomodoro.util.Analytics
 
 
@@ -14,6 +16,7 @@ class PomodoroApp : Application() {
 
     companion object {
         lateinit var instance: PomodoroApp
+        lateinit var timer: ITimerProvider
         lateinit var persistence: PersistenceProvider
     }
 
@@ -21,6 +24,7 @@ class PomodoroApp : Application() {
         super.onCreate()
 
         instance = this
+        timer = TimerService
 
         configCrashReport()
         configFonts()
@@ -31,7 +35,7 @@ class PomodoroApp : Application() {
         ViewPump.init(ViewPump.builder()
                 .addInterceptor(CalligraphyInterceptor(
                         CalligraphyConfig.Builder()
-                                .setDefaultFontPath("fonts/Corbert-Regular.otf")
+                                .setDefaultFontPath("fonts/SpaceMono-Regular.ttf")
                                 .setFontAttrId(R.attr.fontPath)
                                 .build()))
                 .build())

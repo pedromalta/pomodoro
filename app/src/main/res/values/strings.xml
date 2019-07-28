@@ -22,6 +22,7 @@
     <string name="label_status_finished">Finalizado</string>
     <string name="label_status_stopped">Interrompido</string>
     <string name="label_date_placeholder">1 minuto atrás</string>
+    <string name="notification_running">Pomodoro rodando</string>
     <plurals name="label_minutes_ago">
         <item quantity="one">%d minuto atrás</item>
         <item quantity="other">%d minutos atrás</item>

@@ -10,6 +10,7 @@ import net.clubedocomputador.pomodoro.features.base.BaseActivity
 import net.clubedocomputador.pomodoro.features.history.HistoryFragment
 import net.clubedocomputador.pomodoro.features.timer.TimerFragment
 import net.clubedocomputador.pomodoro.messaging.Events
+import net.clubedocomputador.pomodoro.services.timer.TimerService
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -57,7 +58,8 @@ class PrincipalActivity : BaseActivity(), PrincipalMvpView {
     fun onEvents(event: Events) {
 
         when (event.action) {
-
+            Events.STARTED_POMODORO -> TimerService.start(applicationContext)
+            Events.STOPPED_POMODORO -> TimerService.stop(applicationContext)
         }
     }
 

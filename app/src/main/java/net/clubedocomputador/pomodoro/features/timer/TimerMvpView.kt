@@ -4,5 +4,7 @@ import net.clubedocomputador.pomodoro.features.base.MvpView
 
 
 interface TimerMvpView : MvpView {
+    fun startedPomodoro()
+    fun stoppedPomodoro()
 
 }

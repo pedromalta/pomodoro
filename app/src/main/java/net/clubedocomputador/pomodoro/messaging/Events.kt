@@ -16,6 +16,10 @@ data class Events(
     }
 
     companion object {
+        const val STARTED_POMODORO = "started_pomodoro"
+        const val STOPPED_POMODORO = "stopped_pomodoro"
+        const val FINISHED_POMODORO = "finished_pomodoro"
+
         const val APP_FOREGROUND = "app_foreground"
         const val APP_BACKGROUND = "app_background"
     }
