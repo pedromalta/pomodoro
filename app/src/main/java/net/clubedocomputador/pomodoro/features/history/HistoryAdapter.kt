@@ -36,6 +36,9 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
 
     fun reset(){
         history.clear()
+        separatorToday = true
+        separatorYesterday = true
+        lastDate = DateTime.now()
         notifyDataSetChanged()
     }
 
