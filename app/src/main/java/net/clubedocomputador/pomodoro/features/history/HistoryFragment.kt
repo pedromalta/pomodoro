@@ -1,5 +1,6 @@
 package net.clubedocomputador.pomodoro.features.history
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -58,8 +59,8 @@ class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
     }
 
 
-    override fun getTabTitle(): String {
-        return context?.getString(R.string.label_menu_history) ?: "History"
+    override fun getTabTitle(context: Context): String {
+        return context.getString(R.string.label_menu_history)
     }
 
     override fun getLayout(): Int {

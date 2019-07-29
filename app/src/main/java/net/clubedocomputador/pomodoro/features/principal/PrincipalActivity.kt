@@ -44,7 +44,7 @@ class PrincipalActivity : BaseActivity(), PrincipalMvpView {
     }
 
     private fun setupViewPagerAdapter() {
-        viewPager.adapter =  PrincipalViewPagerAdapter(supportFragmentManager, arrayOf(timerFragment, historyFragment))
+        viewPager.adapter =  PrincipalViewPagerAdapter(this, supportFragmentManager, arrayOf(timerFragment, historyFragment))
     }
 
 

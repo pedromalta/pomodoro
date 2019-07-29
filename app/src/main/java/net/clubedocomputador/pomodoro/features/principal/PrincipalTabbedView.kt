@@ -1,5 +1,7 @@
 package net.clubedocomputador.pomodoro.features.principal
 
+import android.content.Context
+
 interface PrincipalTabbedView {
-    fun getTabTitle(): String
+    fun getTabTitle(context: Context): String
 }

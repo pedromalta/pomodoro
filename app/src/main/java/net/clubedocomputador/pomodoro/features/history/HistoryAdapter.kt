@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import net.clubedocomputador.pomodoro.R
 import net.clubedocomputador.pomodoro.extensions.toDateTime
 import net.clubedocomputador.pomodoro.models.local.PomodoroHistory
+import net.clubedocomputador.pomodoro.models.local.PomodoroHistory.Status.Finished
+import net.clubedocomputador.pomodoro.models.local.PomodoroHistory.Status.Stopped
 import net.clubedocomputador.pomodoro.models.view.HistoryItem
+import net.clubedocomputador.pomodoro.models.view.HistoryItem.Separator.*
+import net.clubedocomputador.pomodoro.models.view.HistoryItemTime.TimeType.*
 import net.clubedocomputador.pomodoro.util.Helpers
 import org.joda.time.DateTime
 
@@ -19,11 +23,7 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
 
     private var separatorToday = true
     private var separatorYesterday = true
-    private var separatorThisWeek = true
-    private var separatorThisMonth = true
-    private var separatorThisYear = true
-    private var separatorOlder = true
-
+    private var lastDate: DateTime = DateTime.now()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.view_list_item_pomodoro, parent, false)
@@ -38,66 +38,47 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
         viewHolder.bind(context, history[position])
     }
 
-    private fun processList(pomodoros: List<PomodoroHistory>): List<HistoryItem> {
+    private fun processList(pomodoros: List<PomodoroHistory>) {
         val now = DateTime.now()
 
         for (pomodoro in pomodoros) {
+            lastDate = pomodoro.finish.toDateTime()
+
+            //Today
             if (Helpers.Dates.isToday(now, pomodoro.finish.toDateTime()) && separatorToday) {
                 separatorToday = false
-                history.add(tranformPomodoroToHistoryItem(pomodoro, HistoryItem.Separator.TODAY))
+                history.add(tranformPomodoroToHistoryItem(pomodoro, TODAY))
                 continue
             }
+            //Yesterday
             if (Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime()) && separatorYesterday) {
                 separatorYesterday = false
-                history.add(tranformPomodoroToHistoryItem(pomodoro, HistoryItem.Separator.YESTERDAY))
+                history.add(tranformPomodoroToHistoryItem(pomodoro, YESTERDAY))
                 continue
             }
+            //Other days
             if (!Helpers.Dates.isToday(now, pomodoro.finish.toDateTime())
                     && !Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime())
-                    && Helpers.Dates.isThisWeek(now, pomodoro.finish.toDateTime())
-                    && separatorThisWeek) {
-                separatorThisWeek = false
-                history.add(tranformPomodoroToHistoryItem(pomodoro, HistoryItem.Separator.THIS_WEEK))
-                continue
-            }
-            if (!Helpers.Dates.isToday(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isThisWeek(now, pomodoro.finish.toDateTime())
-                    && Helpers.Dates.isThisMonth(now, pomodoro.finish.toDateTime()) && separatorThisMonth) {
-                separatorThisMonth = false
-                history.add(tranformPomodoroToHistoryItem(pomodoro, HistoryItem.Separator.THIS_MONTH))
-                continue
-            }
-            if (!Helpers.Dates.isToday(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isThisWeek(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isThisMonth(now, pomodoro.finish.toDateTime())
-                    && Helpers.Dates.isThisYear(now, pomodoro.finish.toDateTime()) && separatorThisYear) {
-                separatorThisYear = false
-                history.add(tranformPomodoroToHistoryItem(pomodoro, HistoryItem.Separator.THIS_YEAR))
-                continue
-            }
-            if (!Helpers.Dates.isToday(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isThisWeek(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isThisMonth(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isThisYear(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isThisYear(now, pomodoro.finish.toDateTime()) && separatorOlder) {
-                separatorOlder = false
-                history.add(tranformPomodoroToHistoryItem(pomodoro, HistoryItem.Separator.OLDER))
+                    && !Helpers.Dates.isToday(pomodoro.finish.toDateTime(), lastDate)) {
+                history.add(tranformPomodoroToHistoryItem(pomodoro, DATE))
                 continue
             }
 
-            history.add(tranformPomodoroToHistoryItem(pomodoro, HistoryItem.Separator.NO_SEPARATOR))
+            //No Separator
+            history.add(tranformPomodoroToHistoryItem(pomodoro, NO_SEPARATOR))
         }
-
-        return arrayListOf()
     }
 
     private fun tranformPomodoroToHistoryItem(pomodoro: PomodoroHistory, separator: HistoryItem.Separator): HistoryItem {
         val elapsedTimer = Helpers.Dates.getDurationString(pomodoro.finish, pomodoro.start)
+        val time = Helpers.Dates.getElapsedHistoryTimeItem(pomodoro.finish.toDateTime())
 
-        return HistoryItem(elapsedTimer, pomodoro.finish, "", "", separator)
+        return HistoryItem(
+                elapsedTimer,
+                pomodoro.finish,
+                pomodoro.status,
+                time,
+                separator)
 
     }
 
@@ -116,10 +97,28 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
         fun bind(context: Context, item: HistoryItem) {
 
             textViewTimer.text = item.timer
-            textViewSeparator.visibility = if (item.separator == HistoryItem.Separator.NO_SEPARATOR) View.GONE else View.VISIBLE
-            /* tvCarro.text = item.descricaoVeiculo
-             tvTextoInicio.text = context.getString(R.string.text_start_viagem, item.dataInicioRealizada, item.horaInicioRealizada)
-             tvTextoFim.text = context.getString(R.string.text_finish_viagem, item.dataFimRealizada, item.horaFimRealizada)*/
+            textViewSeparator.visibility = if (item.separator == NO_SEPARATOR) View.GONE else View.VISIBLE
+
+            when (item.separator) {
+                NO_SEPARATOR -> {
+                }
+                TODAY -> textViewSeparator.text = context.getText(R.string.label_date_list_separator_today)
+                YESTERDAY -> textViewSeparator.text = context.getText(R.string.label_date_list_separator_yesterday)
+                DATE -> textViewSeparator.text = Helpers.Dates.dateFormat(context, item.finish)
+            }
+
+            when (item.status) {
+                Finished -> textViewStatus.text = context.getText(R.string.label_status_finished)
+                Stopped -> textViewStatus.text = context.getText(R.string.label_status_stopped)
+            }
+
+            when (item.time.timeType) {
+                TIME -> textViewDate.text = Helpers.Dates.timeFormat(context, item.finish)
+                MOMENTS -> textViewDate.text = context.getText(R.string.label_moments_ago)
+                MINUTE -> textViewDate.text = context.resources.getQuantityString(R.plurals.label_minutes_ago, item.time.timeCount, item.time.timeCount)
+                HOUR -> textViewDate.text = context.resources.getQuantityString(R.plurals.label_hours_ago, item.time.timeCount, item.time.timeCount)
+
+            }
         }
 
     }

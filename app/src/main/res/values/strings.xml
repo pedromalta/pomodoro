@@ -18,11 +18,17 @@
     <string name="label_menu_new">Novo</string>
     <string name="label_menu_history">Histórico</string>
     <string name="label_timer_placeholder">25:00</string>
-    <string name="label_date_list_separator_placeholder">Hoje</string>
+    <string name="label_date_list_separator_today">Hoje</string>
+    <string name="label_date_list_separator_yesterday">Ontem</string>
+    <string name="label_date_list_separator_this_week">Essa semana</string>
+    <string name="label_date_list_separator_this_month">Esse mês</string>
+    <string name="label_date_list_separator_this_year">Esse ano</string>
+    <string name="label_date_list_separator_older">Mais antigas</string>
     <string name="label_status_finished">Finalizado</string>
     <string name="label_status_stopped">Interrompido</string>
     <string name="label_date_placeholder">1 minuto atrás</string>
     <string name="notification_running">Pomodoro rodando</string>
+    <string name="label_moments_ago">momentos atrás</string>
     <plurals name="label_minutes_ago">
         <item quantity="one">%d minuto atrás</item>
         <item quantity="other">%d minutos atrás</item>
@@ -35,6 +41,10 @@
     <plurals name="label_days_ago">
         <item quantity="one">%d dia atrás</item>
         <item quantity="other">%d dias atrás</item>
+    </plurals>
+    <plurals name="label_weeks_ago">
+        <item quantity="one">%d semanas atrás</item>
+        <item quantity="other">%d semanas atrás</item>
     </plurals>
     <plurals name="label_months_ago">
         <item quantity="one">%d mês atrás</item>

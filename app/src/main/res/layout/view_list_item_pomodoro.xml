@@ -8,8 +8,6 @@
     android:paddingLeft="16dp"
     android:orientation="horizontal">
 
-
-
     <LinearLayout
         android:layout_width="0dp"
         android:layout_weight="1"
@@ -23,7 +21,7 @@
             android:textColor="@color/red"
             android:textSize="22sp"
             android:layout_marginBottom="16dp"
-            android:text="@string/label_date_list_separator_placeholder" />
+            android:text="@string/label_date_list_separator_today" />
 
         <TextView
             android:id="@+id/text_view_timer"

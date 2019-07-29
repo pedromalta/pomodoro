@@ -14,26 +14,24 @@ import android.media.SoundPool
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.text.format.DateFormat
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.Window
 import android.view.animation.AccelerateInterpolator
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.RawRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import net.clubedocomputador.pomodoro.R
 import net.clubedocomputador.pomodoro.extensions.toDateTime
-import org.joda.time.DateTime
-import org.joda.time.Duration
-import org.joda.time.Period
-import org.joda.time.Seconds
+import net.clubedocomputador.pomodoro.models.view.HistoryItemTime
+import org.joda.time.*
 import org.joda.time.format.PeriodFormatterBuilder
-import java.text.DecimalFormat
 import java.util.*
 import java.util.regex.Pattern
 import kotlin.collections.HashMap
@@ -53,7 +51,7 @@ object Helpers {
 
         fun progress(context: Context, message: String, show: Boolean = true, cancelable: Boolean = false): ProgressDialog {
             val progressBar = ProgressDialog(context)
-            progressBar.window?.setBackgroundDrawable(context.getDrawable(R.drawable.round_white_box))
+            progressBar.window?.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.round_white_box))
             progressBar.setMessage(message)
             progressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER)
             progressBar.setCancelable(cancelable)
@@ -111,7 +109,7 @@ object Helpers {
             val view = toast.view
             view.setBackgroundResource(R.drawable.bg_radius_dark)
             val text = view.findViewById<TextView>(android.R.id.message)
-            text.setTextColor(context.getColor(android.R.color.white))
+            text.setTextColor(ContextCompat.getColor(context, android.R.color.white))
             if (show) {
                 toast.show()
             }
@@ -197,17 +195,6 @@ object Helpers {
 
     object Layout {
 
-        fun startRevealAnimation(viewInside: View, viewOutside: View) {
-            val cx = viewOutside.measuredWidth / 2
-            val cy = viewOutside.measuredHeight / 2
-            val anim = ViewAnimationUtils.createCircularReveal(viewInside, cx, cy, 50f, viewOutside.width.toFloat())
-            anim.duration = 500
-            anim.interpolator = AccelerateInterpolator(2f)
-            anim.addListener(object : AnimatorListenerAdapter() {})
-            anim.start()
-        }
-
-
         fun animateViewVisibility(view: View, visibility: Int) {
             // cancel runnning animations and remove any listeners
             view.animate().cancel()
@@ -261,16 +248,13 @@ object Helpers {
 
     object Dates {
 
-        fun formatDefault(date: Date): String {
-            return android.text.format.DateFormat.format("hh:mm", date).toString()
+
+        fun dateFormat(context: Context, date: Date): String {
+            return DateFormat.getDateFormat(context).format(date).toString()
         }
 
-        fun formatWithSeconds(date: Date): String {
-            return android.text.format.DateFormat.format("hh:mm:ss", date).toString()
-        }
-
-        fun formatWithYear(date: Date): String {
-            return android.text.format.DateFormat.format("dd/MM/YYYY - hh:mm", date).toString()
+        fun timeFormat(context: Context, date: Date): String {
+            return DateFormat.getTimeFormat(context).format(date).toString()
         }
 
         fun isToday(now: DateTime, date: DateTime): Boolean {
@@ -282,17 +266,6 @@ object Helpers {
             return now.withTimeAtStartOfDay().isEqual(oneDayBeforeDate)
         }
 
-        fun isThisWeek(now: DateTime, date: DateTime): Boolean {
-            return now.year == date.year && now.monthOfYear == date.monthOfYear && now.weekOfWeekyear == date.weekOfWeekyear
-        }
-
-        fun isThisMonth(now: DateTime, date: DateTime): Boolean {
-            return now.year == date.year && now.monthOfYear == date.monthOfYear
-        }
-
-        fun isThisYear(now: DateTime, date: DateTime): Boolean {
-            return now.year == date.year
-        }
 
         fun getDurationString(start: Date, finished: Date): String{
             val elapsed = Seconds.secondsBetween(finished.toDateTime(), start.toDateTime())
@@ -312,9 +285,20 @@ object Helpers {
 
         }
 
-        fun getElapsedTime(finishTime: DateTime): String {
-            val remaining = Seconds.secondsBetween(DateTime.now(), finishTime)
-            return getDurationString(remaining.seconds)
+        fun getElapsedHistoryTimeItem(finishTime: DateTime): HistoryItemTime {
+            val minutes = Minutes.minutesBetween(finishTime, DateTime.now())
+            if (minutes.minutes == 0){
+                return HistoryItemTime(0, HistoryItemTime.TimeType.MOMENTS)
+            }
+            val hours = Hours.hoursBetween(finishTime, DateTime.now())
+            if (hours.hours == 0){
+                return HistoryItemTime(minutes.minutes, HistoryItemTime.TimeType.MINUTE)
+            }
+            val days = Days.daysBetween(finishTime, DateTime.now())
+            if (days.days == 0 && hours.hours < 2){
+                return HistoryItemTime(hours.hours, HistoryItemTime.TimeType.HOUR)
+            }
+            return HistoryItemTime(0, HistoryItemTime.TimeType.TIME)
         }
 
     }

@@ -1,5 +1,6 @@
 package net.clubedocomputador.pomodoro.features.timer
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -116,8 +117,8 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
         }
     }
 
-    override fun getTabTitle(): String {
-        return context?.getString(R.string.label_menu_new) ?: "New"
+    override fun getTabTitle(context: Context): String {
+        return context.getString(R.string.label_menu_new)
     }
 
     override fun getLayout(): Int {
