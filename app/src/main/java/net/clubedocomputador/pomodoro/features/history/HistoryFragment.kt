@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import net.clubedocomputador.pomodoro.R
 import net.clubedocomputador.pomodoro.features.base.BaseFragment
 import net.clubedocomputador.pomodoro.features.principal.PrincipalTabbedView
+import net.clubedocomputador.pomodoro.messaging.Events
 import net.clubedocomputador.pomodoro.util.Analytics
 import net.clubedocomputador.pomodoro.views.EndlessScrollView
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
@@ -55,6 +58,24 @@ class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
             if (adapter is HistoryAdapter) {
                 adapter.swap(historyList)
             }
+        }
+    }
+
+    private fun resetList(){
+        val adapter = recyclerView.adapter
+        if (adapter is HistoryAdapter) {
+            adapter.reset()
+        }
+        lastDate = null
+        loadMoreHistoryItens()
+    }
+
+    @Suppress("UNUSED")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvents(event: Events) {
+
+        when (event.action) {
+            Events.FINISHED_POMODORO, Events.STOPPED_POMODORO -> resetList()
         }
     }
 

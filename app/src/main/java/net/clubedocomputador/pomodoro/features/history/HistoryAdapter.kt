@@ -34,6 +34,11 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
         return history.size
     }
 
+    fun reset(){
+        history.clear()
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(viewHolder: HistoryViewHolder, position: Int) {
         viewHolder.bind(context, history[position])
     }
