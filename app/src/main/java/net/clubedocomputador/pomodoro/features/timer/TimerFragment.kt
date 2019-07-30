@@ -39,12 +39,16 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
         presenter.attachView(this)
         buttonStartStop = view.findViewById(R.id.button_start_stop)
         textViewTimer = view.findViewById(R.id.text_view_timer)
-        updateLayoutState()
         setupButtonStartStop()
         setupTextViewTimer()
 
         Analytics.logEvent(Analytics.EVENT_CONTENT_VIEW, Analytics.Contents.FRAGMENT_TIMER)
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateLayoutState()
     }
 
     private fun setupTextViewTimer() {

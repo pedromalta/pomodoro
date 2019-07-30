@@ -258,12 +258,12 @@ object Helpers {
         }
 
         fun isToday(now: DateTime, date: DateTime): Boolean {
-            return now.withTimeAtStartOfDay().isEqual(date.withTimeAtStartOfDay())
+            return date.withTimeAtStartOfDay().isEqual(now.withTimeAtStartOfDay())
         }
 
         fun isYesterday(now: DateTime, date: DateTime): Boolean {
-            val oneDayBeforeDate = date.withTimeAtStartOfDay().minusDays(1)
-            return now.withTimeAtStartOfDay().isEqual(oneDayBeforeDate)
+            val oneDayBeforeDate = now.minusDays(1).withTimeAtStartOfDay()
+            return date.withTimeAtStartOfDay().isEqual(oneDayBeforeDate)
         }
 
 

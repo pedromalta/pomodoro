@@ -35,20 +35,25 @@ class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        resetList()
+    }
+
     private fun setupRecyclerView() {
         val context = activity ?: return
 
         recyclerView.adapter = HistoryAdapter(context)
-        loadMoreHistoryItens()
         val linearLayout = LinearLayoutManager(context)
         recyclerView.layoutManager = linearLayout
         recyclerView.addOnScrollListener(object : EndlessScrollView(linearLayout) {
             override fun onLoadMore(currentPage: Int) {
                 loadMoreHistoryItens()
             }
-
         })
     }
+
+
 
     private fun loadMoreHistoryItens() {
         val historyList = presenter.getList(lastDate)
