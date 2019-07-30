@@ -70,7 +70,6 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
             if (PomodoroApp.persistence.pomodoro == null) {
                 presenter.startPomodoro()
             } else {
-                Analytics.logEvent(Analytics.EVENT_TIMER_STOP)
                 presenter.stopPomodoro()
             }
         }
