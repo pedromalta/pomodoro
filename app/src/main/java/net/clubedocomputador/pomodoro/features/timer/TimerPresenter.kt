@@ -16,6 +16,7 @@ class TimerPresenter : BasePresenter<TimerMvpView>() {
             val pomodoro = Pomodoro()
             pomodoro.id = UUID.randomUUID().toString()
             PomodoroApp.persistence.pomodoro = pomodoro
+            Analytics.logEvent(Analytics.EVENT_TIMER_START)
         } else {
             Analytics.logError("Iniciar Pomodoro", Exception("Pomodoro ja existe"))
         }
@@ -32,6 +33,8 @@ class TimerPresenter : BasePresenter<TimerMvpView>() {
             pomodoro.status = Pomodoro.Status.Stopped.value
             pomodoro.save()
             PomodoroApp.persistence.pomodoro = null
+            Analytics.logEvent(Analytics.EVENT_TIMER_STOP, pomodoro.elapsedTime)
+
         }
         mvpView?.stoppedPomodoro()
         Events(Events.STOPPED_POMODORO)

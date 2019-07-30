@@ -37,7 +37,7 @@ object Analytics {
             when (event) {
                 EVENT_CONTENT_VIEW -> eventContentView(data as String)
                 EVENT_TIMER_START -> eventTimerStart()
-                EVENT_TIMER_STOP -> eventTimerStop()
+                EVENT_TIMER_STOP -> eventTimerStop(data as String)
                 EVENT_TIMER_FINISHED -> eventTimerFinished()
 
 
@@ -54,8 +54,9 @@ object Analytics {
         )
     }
 
-    private fun eventTimerStop() {
+    private fun eventTimerStop(elapsed: String) {
         logger().logCustom(CustomEvent(EVENT_TIMER_STOP)
+                .putCustomAttribute("elapsed", elapsed)
                 .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}")
         )
     }
