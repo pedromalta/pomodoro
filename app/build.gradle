@@ -110,14 +110,14 @@ android {
     productFlavors {
         ext.app_version = "0.0.1"
         development {
-            applicationId = "net.clubedocomputador.pomodoro"
+            applicationId = "net.clubedocomputador.pomodoro.dev"
             dimension "tier"
             versionName "$app_version-dev"
             manifestPlaceholders = [fabricApiKey: "${FABRIC_API_KEY_DEV}"]
         }
 
         production {
-            applicationId = "net.clubedocomputador.pomodoro-dev"
+            applicationId = "net.clubedocomputador.pomodoro"
             dimension "tier"
             versionName "$app_version"
             manifestPlaceholders = [fabricApiKey: "${FABRIC_API_KEY_PROD}"]
@@ -159,26 +159,34 @@ repositories {
 }
 
 dependencies {
-    ext.anko_version = '0.10.4'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    ext.anko_version = '0.10.4'
+    implementation "org.jetbrains.anko:anko:$anko_version"
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version"
+
     implementation group: 'org.joda', name: 'joda-convert', version: '2.0.1', classifier: 'classic'
     implementation 'joda-time:joda-time:2.9.9'
 
-    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
-    implementation 'androidx.preference:preference:1.0.0-beta01'
-    implementation 'androidx.legacy:legacy-preference-v14:1.0.0-beta01'
     implementation 'com.google.android.material:material:1.0.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'androidx.vectordrawable:vectordrawable:1.0.0-beta01'
     implementation 'androidx.recyclerview:recyclerview:1.0.0-beta01'
-    implementation 'androidx.cardview:cardview:1.0.0-beta01'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
+    kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0-beta01'
 
+
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.github.vicpinm:krealmextensions:2.5.0'
+    implementation 'io.github.inflationx:calligraphy3:3.0.0'
+    implementation 'io.github.inflationx:viewpump:1.0.0'
     implementation('com.crashlytics.sdk.android:crashlytics:2.10.0@aar') {
         transitive = true
     }
 
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.3.0'
@@ -188,19 +196,10 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
 
-    implementation 'com.github.vicpinm:krealmextensions:2.5.0'
-    implementation 'io.github.inflationx:calligraphy3:3.0.0'
-    implementation 'io.github.inflationx:viewpump:1.0.0'
-    implementation "org.jetbrains.anko:anko:$anko_version"
-    // Anko Commons
-    implementation "org.jetbrains.anko:anko-commons:$anko_version"
-    // Appcompat-v7 (only Anko Commons)
-    implementation "org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version"
 
 
-    implementation 'org.greenrobot:eventbus:3.1.1'
-    implementation 'com.nabinbhandari.android:permissions:3.7'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-beta01'
-    kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0-beta01'
+
+
+
 
 }
