@@ -19,6 +19,7 @@ import net.clubedocomputador.pomodoro.features.principal.PrincipalActivity
 import net.clubedocomputador.pomodoro.messaging.Events
 import net.clubedocomputador.pomodoro.persistence.models.Pomodoro
 import net.clubedocomputador.pomodoro.services.notification.Notification
+import net.clubedocomputador.pomodoro.util.Analytics
 import net.clubedocomputador.pomodoro.util.Helpers
 import org.joda.time.DateTime
 import java.util.concurrent.TimeUnit
@@ -126,6 +127,7 @@ class TimerService : Service() {
         if (pomodoro == null) {
             stopService()
         } else if (DateTime.now().isAfter(pomodoro.finishDate)) {
+            Analytics.logEvent(Analytics.EVENT_TIMER_FINISHED)
             finishPomodoro(pomodoro)
             notifyFinish()
             stopService()
@@ -134,7 +136,6 @@ class TimerService : Service() {
     }
 
     private fun finishPomodoro(pomodoro: Pomodoro) {
-
         pomodoro.status = Pomodoro.Status.Finished.value
         pomodoro.finish = pomodoro.finishDate.toDate()
         pomodoro.save()

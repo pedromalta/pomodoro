@@ -12,8 +12,9 @@ import io.fabric.sdk.android.Fabric
 object Analytics {
 
     const val EVENT_CONTENT_VIEW = "event_content_view"
-    const val EVENT_TIMER = "event_timer"
-
+    const val EVENT_TIMER_START = "event_timer_start"
+    const val EVENT_TIMER_STOP = "event_timer_stop"
+    const val EVENT_TIMER_FINISHED = "event_timer_finished"
 
     object Contents {
         const val FRAGMENT_TIMER = "Timer"
@@ -35,7 +36,10 @@ object Analytics {
         try {
             when (event) {
                 EVENT_CONTENT_VIEW -> eventContentView(data as String)
-                EVENT_TIMER -> eventTimer(data as String)
+                EVENT_TIMER_START -> eventTimerStart()
+                EVENT_TIMER_STOP -> eventTimerStop()
+                EVENT_TIMER_FINISHED -> eventTimerFinished()
+
 
             }
 
@@ -44,15 +48,25 @@ object Analytics {
         }
     }
 
-    private fun eventContentView(action: String) {
-        logger().logCustom(CustomEvent(EVENT_TIMER)
-                .putCustomAttribute("action", action)
+    private fun eventTimerStart() {
+        logger().logCustom(CustomEvent(EVENT_TIMER_START)
                 .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}")
         )
-
     }
 
-    private fun eventTimer(content: String) {
+    private fun eventTimerStop() {
+        logger().logCustom(CustomEvent(EVENT_TIMER_STOP)
+                .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}")
+        )
+    }
+
+    private fun eventTimerFinished() {
+        logger().logCustom(CustomEvent(EVENT_TIMER_FINISHED)
+                .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}")
+        )
+    }
+
+    private fun eventContentView(content: String) {
         logger().logContentView(ContentViewEvent()
                 .putContentName(content)
                 .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}"))

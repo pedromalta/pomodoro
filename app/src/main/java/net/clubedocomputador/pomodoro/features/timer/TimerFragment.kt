@@ -68,8 +68,10 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
     private fun setupButtonStartStop() {
         buttonStartStop.setOnClickListener {
             if (PomodoroApp.persistence.pomodoro == null) {
+                Analytics.logEvent(Analytics.EVENT_TIMER_START)
                 presenter.startPomodoro()
             } else {
+                Analytics.logEvent(Analytics.EVENT_TIMER_STOP)
                 presenter.stopPomodoro()
             }
         }
