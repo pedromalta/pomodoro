@@ -26,9 +26,9 @@
         android:layout_marginBottom="50dp"
         android:clickable="true"
         android:focusable="true"
+        app:backgroundTint="@color/colorPrimary"
         app:layout_constraintLeft_toRightOf="@id/text_view_timer"
         app:layout_constraintRight_toRightOf="@id/text_view_timer"
         app:layout_constraintTop_toBottomOf="@id/text_view_timer"
-        app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/ic_play_arrow_white_32dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

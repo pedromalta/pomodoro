@@ -20,23 +20,23 @@
     </FrameLayout>
 
     <com.google.android.material.appbar.AppBarLayout
-        app:elevation="6dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:elevation="6dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_main"
-            app:title="@string/app_name"
-            app:titleTextAppearance="@style/Pomodoro.Toolbar.TextAppearence"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Pomodoro.Toolbar.TextAppearence" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextColor="@color/grey"
-            app:tabSelectedTextColor="@android:color/white" />
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@color/grey" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

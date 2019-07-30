@@ -2,7 +2,6 @@ package net.clubedocomputador.pomodoro.features.principal
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import androidx.core.widget.NestedScrollView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import net.clubedocomputador.pomodoro.R
@@ -44,11 +43,11 @@ class PrincipalActivity : BaseActivity(), PrincipalMvpView {
     }
 
     private fun setupViewPagerAdapter() {
-        viewPager.adapter =  PrincipalViewPagerAdapter(this, supportFragmentManager, arrayOf(timerFragment, historyFragment))
+        viewPager.adapter = PrincipalViewPagerAdapter(this, supportFragmentManager, arrayOf(timerFragment, historyFragment))
     }
 
 
-    private fun setupTabLayout(){
+    private fun setupTabLayout() {
         tabLayout.setupWithViewPager(viewPager)
     }
 

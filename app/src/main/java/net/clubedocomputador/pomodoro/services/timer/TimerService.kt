@@ -8,7 +8,6 @@ import android.os.IBinder
 import androidx.annotation.Nullable
 import androidx.core.app.NotificationCompat
 import com.vicpin.krealmextensions.save
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -20,10 +19,8 @@ import net.clubedocomputador.pomodoro.features.principal.PrincipalActivity
 import net.clubedocomputador.pomodoro.messaging.Events
 import net.clubedocomputador.pomodoro.persistence.models.Pomodoro
 import net.clubedocomputador.pomodoro.services.notification.Notification
-import net.clubedocomputador.pomodoro.util.Analytics
 import net.clubedocomputador.pomodoro.util.Helpers
 import org.joda.time.DateTime
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -66,7 +63,7 @@ class TimerService : Service() {
 
 
     private fun startService() {
-        if (isRunning) return
+        if (isRunning || PomodoroApp.persistence.pomodoro == null) return
 
         isRunning = true
 
@@ -137,16 +134,17 @@ class TimerService : Service() {
     }
 
     private fun finishPomodoro(pomodoro: Pomodoro) {
+
         pomodoro.status = Pomodoro.Status.Finished.value
-        pomodoro.finish = Date()
+        pomodoro.finish = pomodoro.finishDate.toDate()
         pomodoro.save()
         PomodoroApp.persistence.pomodoro = null
         Events(Events.FINISHED_POMODORO)
     }
 
     private fun notifyFinish() {
-        Helpers.Notifications.startVibrationShort(this@TimerService)
-        //Helpers.Notifications.startSound(this@TimerService, false, R.raw.alarm)
+        Helpers.Notifications.startVibrationShort(this)
+        Helpers.Notifications.startSound(this)
     }
 
 

@@ -5,26 +5,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
-import android.view.animation.Animation
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import net.clubedocomputador.pomodoro.PomodoroApp
 import net.clubedocomputador.pomodoro.R
 import net.clubedocomputador.pomodoro.features.base.BaseFragment
 import net.clubedocomputador.pomodoro.features.principal.PrincipalTabbedView
-import net.clubedocomputador.pomodoro.util.Analytics
-import org.jetbrains.anko.textColor
-import java.util.concurrent.TimeUnit
-import android.view.animation.TranslateAnimation
-import io.reactivex.android.schedulers.AndroidSchedulers
 import net.clubedocomputador.pomodoro.messaging.Events
+import net.clubedocomputador.pomodoro.util.Analytics
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.image
+import org.jetbrains.anko.textColor
+import java.util.concurrent.TimeUnit
 
 
 class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {

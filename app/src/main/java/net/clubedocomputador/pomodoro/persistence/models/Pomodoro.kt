@@ -7,7 +7,7 @@ import net.clubedocomputador.pomodoro.util.Helpers
 import org.joda.time.DateTime
 import java.util.*
 
-open class Pomodoro: RealmObject() {
+open class Pomodoro : RealmObject() {
 
     @PrimaryKey
     var id: String = ""
@@ -16,7 +16,7 @@ open class Pomodoro: RealmObject() {
     var status: Int = Status.Running.value
 
     val elapsedTime: String
-        get(){
+        get() {
             this.finish?.apply {
                 return Helpers.Dates.getDurationString(start, this)
             }
@@ -24,7 +24,7 @@ open class Pomodoro: RealmObject() {
         }
 
     val finishDate: DateTime
-        get(){
+        get() {
             return DateTime(start).plusMinutes(Config.POMODORO_MINUTES)
         }
 

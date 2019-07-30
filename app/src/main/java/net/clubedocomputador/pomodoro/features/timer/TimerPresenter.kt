@@ -11,7 +11,7 @@ import java.util.*
 
 class TimerPresenter : BasePresenter<TimerMvpView>() {
 
-    fun startPomodoro(){
+    fun startPomodoro() {
         if (PomodoroApp.persistence.pomodoro == null) {
             val pomodoro = Pomodoro()
             pomodoro.id = UUID.randomUUID().toString()
@@ -23,7 +23,7 @@ class TimerPresenter : BasePresenter<TimerMvpView>() {
         Events(Events.STARTED_POMODORO)
     }
 
-    fun stopPomodoro(){
+    fun stopPomodoro() {
         val pomodoro = PomodoroApp.persistence.pomodoro
         if (pomodoro == null) {
             Analytics.logError("Parar Pomodoro", Exception("Pomodoro nao existe"))
@@ -41,7 +41,7 @@ class TimerPresenter : BasePresenter<TimerMvpView>() {
         return PomodoroApp.persistence.pomodoro?.elapsedTime ?: Config.POMODORO_MINUTES_STRING
     }
 
-    fun isPomodoroRunning(): Boolean{
+    fun isPomodoroRunning(): Boolean {
         return PomodoroApp.persistence.pomodoro != null
     }
 

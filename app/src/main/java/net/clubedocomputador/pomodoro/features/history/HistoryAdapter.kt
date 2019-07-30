@@ -23,7 +23,7 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
 
     private var separatorToday = true
     private var separatorYesterday = true
-    private var lastDate: DateTime = DateTime.now()
+    private val lastDates: ArrayList<DateTime> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.view_list_item_pomodoro, parent, false)
@@ -34,11 +34,11 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
         return history.size
     }
 
-    fun reset(){
+    fun reset() {
         history.clear()
+        lastDates.clear()
         separatorToday = true
         separatorYesterday = true
-        lastDate = DateTime.now()
         notifyDataSetChanged()
     }
 
@@ -48,26 +48,26 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
 
     private fun processList(pomodoros: List<PomodoroHistory>) {
         val now = DateTime.now()
-
         for (pomodoro in pomodoros) {
-            lastDate = pomodoro.finish.toDateTime()
 
-            //Today
+            //First Today
             if (Helpers.Dates.isToday(now, pomodoro.finish.toDateTime()) && separatorToday) {
                 separatorToday = false
                 history.add(tranformPomodoroToHistoryItem(pomodoro, TODAY))
                 continue
             }
-            //Yesterday
+            //First Yesterday
             if (Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime()) && separatorYesterday) {
                 separatorYesterday = false
                 history.add(tranformPomodoroToHistoryItem(pomodoro, YESTERDAY))
                 continue
             }
-            //Other days
-            if (!Helpers.Dates.isToday(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime())
-                    && !Helpers.Dates.isToday(pomodoro.finish.toDateTime(), lastDate)) {
+            //First of each other days
+            if (!Helpers.Dates.isToday(now, pomodoro.finish.toDateTime()) //not today
+                    && !Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime())//not yesterday
+                    && (lastDates.isEmpty() || !Helpers.Dates.isToday(lastDates.last(), pomodoro.finish.toDateTime()))) //not last date we separated
+            {
+                lastDates.add(pomodoro.finish.toDateTime().withTimeAtStartOfDay())
                 history.add(tranformPomodoroToHistoryItem(pomodoro, DATE))
                 continue
             }

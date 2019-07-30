@@ -54,7 +54,6 @@ class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
     }
 
 
-
     private fun loadMoreHistoryItens() {
         val historyList = presenter.getList(lastDate)
         if (historyList.isNotEmpty()) {
@@ -66,7 +65,7 @@ class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
         }
     }
 
-    private fun resetList(){
+    private fun resetList() {
         val adapter = recyclerView.adapter
         if (adapter is HistoryAdapter) {
             adapter.reset()

@@ -10,8 +10,8 @@ data class HistoryItem(
         val time: HistoryItemTime,
         val separator: Separator) {
 
-    enum class Separator{
-       NO_SEPARATOR, TODAY, YESTERDAY, DATE
+    enum class Separator {
+        NO_SEPARATOR, TODAY, YESTERDAY, DATE
     }
 
 
