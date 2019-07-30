@@ -56,7 +56,7 @@ object Analytics {
 
     private fun eventTimerStop(elapsed: String) {
         logger().logCustom(CustomEvent("Pomodoro Interrupted")
-                .putCustomAttribute("elapsed", elapsed)
+                .putCustomAttribute("elapsed", "${elapsed.substring(0,2)} minutes")
                 .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}")
         )
     }
