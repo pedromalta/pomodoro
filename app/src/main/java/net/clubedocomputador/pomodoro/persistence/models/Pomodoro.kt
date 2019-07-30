@@ -18,7 +18,7 @@ open class Pomodoro : RealmObject() {
     val elapsedTime: String
         get() {
             this.finish?.apply {
-                return Helpers.Dates.getDurationString(start, this)
+                return Helpers.Dates.getDurationString(this, start)
             }
             return Helpers.Dates.getDurationString(finishDate.toDate(), Date())
         }
