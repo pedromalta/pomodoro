@@ -16,7 +16,7 @@
     <string name="label_moments_ago">Moments ago</string>
     <plurals name="label_minutes_ago">
         <item quantity="one">%d minute ago</item>
-        <item quantity="other">%d minutes </item>
+        <item quantity="other">%d minutes ago</item>
     </plurals>
     <plurals name="label_hours_ago">
         <item quantity="one">%d hour ago</item>

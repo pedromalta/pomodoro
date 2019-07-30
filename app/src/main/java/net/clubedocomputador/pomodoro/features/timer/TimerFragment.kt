@@ -93,6 +93,7 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
         context?.apply {
             textViewTimer.textColor = ContextCompat.getColor(this, R.color.red)
             buttonStartStop.image = ContextCompat.getDrawable(this, R.drawable.ic_stop_white_32dp)
+            imageViewSmile.reactToTimer(presenter.getTimer(), presenter.isPomodoroRunning())
 
         }
     }
