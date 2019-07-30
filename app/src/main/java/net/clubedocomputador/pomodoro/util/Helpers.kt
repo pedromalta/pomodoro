@@ -1,9 +1,7 @@
 package net.clubedocomputador.pomodoro.util
 
 import android.content.Context
-import android.media.AudioAttributes
 import android.media.MediaPlayer
-import android.media.SoundPool
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -13,7 +11,6 @@ import android.widget.Toast
 import androidx.annotation.RawRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
-import net.clubedocomputador.pomodoro.BuildConfig
 import net.clubedocomputador.pomodoro.R
 import net.clubedocomputador.pomodoro.extensions.toDateTime
 import net.clubedocomputador.pomodoro.models.view.HistoryItemTime
@@ -112,14 +109,17 @@ object Helpers {
         private var vibrator: Vibrator? = null
         private var mediaPlayer: MediaPlayer? = null
 
-        fun startSound(context: Context, @RawRes sound: Int = R.raw.alarm) {
+        fun startSound(context: Context, @RawRes soundResource: Int = R.raw.ding) {
             stopSound()
-
-            mediaPlayer = MediaPlayer.create(context, sound)
-            mediaPlayer?.prepareAsync()
-            mediaPlayer?.setOnPreparedListener {
-                it.start()
+            val sound = context.resources.openRawResourceFd(soundResource) ?: return
+            mediaPlayer = MediaPlayer().apply {
+                setDataSource(sound.fileDescriptor, sound.startOffset, sound.declaredLength)
+                setOnPreparedListener {
+                    it.start()
+                }
+                prepareAsync()
             }
+
 
         }
 
