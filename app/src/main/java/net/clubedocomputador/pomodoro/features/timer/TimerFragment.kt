@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,12 +31,14 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
 
     private lateinit var buttonStartStop: FloatingActionButton
     private lateinit var textViewTimer: TextView
+    private lateinit var imageViewSmile: TimerSmileView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         presenter.attachView(this)
         buttonStartStop = view.findViewById(R.id.button_start_stop)
         textViewTimer = view.findViewById(R.id.text_view_timer)
+        imageViewSmile = view.findViewById(R.id.image_view_smile)
         setupButtonStartStop()
         setupTextViewTimer()
 
@@ -54,7 +57,9 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
 
     }
 
+
     private fun startTimerUpdates() {
+        imageViewSmile.showActive()
         Single.create<String> { it.onSuccess(presenter.getTimer()) }
                 .delaySubscription(1, TimeUnit.SECONDS)
                 .repeatUntil { !presenter.isPomodoroRunning() }
@@ -62,6 +67,7 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
                 .subscribe { remainingTime ->
                     //TODO animate?
                     textViewTimer.text = remainingTime
+                    imageViewSmile.reactToTimer(remainingTime, presenter.isPomodoroRunning())
                 }.addTo(presenter.disposable)
     }
 
@@ -95,6 +101,7 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
         context?.apply {
             textViewTimer.textColor = ContextCompat.getColor(this, R.color.grey)
             buttonStartStop.image = ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_white_32dp)
+            imageViewSmile.showInactive()
 
         }
     }

@@ -28,7 +28,7 @@ object Analytics {
     fun logError(action: String, error: Throwable) {
         //Online logging
         Crashlytics.logException(Exception(action, error))
-        //Local loggind
+        //Local logging
         //ComputedErrors.compute(ComputeError(error))
     }
 
