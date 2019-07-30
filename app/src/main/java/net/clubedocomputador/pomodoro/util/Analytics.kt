@@ -18,7 +18,7 @@ object Analytics {
 
     object Contents {
         const val FRAGMENT_TIMER = "Timer"
-        const val FRAGMENT_HISTORY = "Histórico"
+        const val FRAGMENT_HISTORY = "History"
     }
 
     fun configCrashReport(context: Context) {
@@ -49,20 +49,20 @@ object Analytics {
     }
 
     private fun eventTimerStart() {
-        logger().logCustom(CustomEvent(EVENT_TIMER_START)
+        logger().logCustom(CustomEvent("Pomodoro Started")
                 .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}")
         )
     }
 
     private fun eventTimerStop(elapsed: String) {
-        logger().logCustom(CustomEvent(EVENT_TIMER_STOP)
+        logger().logCustom(CustomEvent("Pomodoro Interrupted")
                 .putCustomAttribute("elapsed", elapsed)
                 .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}")
         )
     }
 
     private fun eventTimerFinished() {
-        logger().logCustom(CustomEvent(EVENT_TIMER_FINISHED)
+        logger().logCustom(CustomEvent("Pomodoro Finished")
                 .putCustomAttribute("phone", "${Build.MANUFACTURER} ${Build.MODEL}")
         )
     }
