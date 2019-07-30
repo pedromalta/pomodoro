@@ -25,7 +25,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/button_background_blue</item>
     </style>
-    
+
     <style name="Pomodoro.Toolbar.TextAppearence" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">22sp</item>

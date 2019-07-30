@@ -1,60 +1,27 @@
 <resources>
-    <string name="app_name">Pomodoro</string>
+    <string name="app_name" translatable="false">Pomodoro</string>
 
     <!-- GENERIC ERROR -->
-    <string name="error_generic">Erro ao processar solicitação</string>
+    <string name="error_generic">Error processing the request</string>
 
     <!-- Validations -->
-    <string name="validate_empty">%1$s é obrigatório</string>
-    <string name="validate_confirm_password">Senhas não conferem</string>
-    <string name="validate_email">%1$s não é um e-mail válido</string>
-    <string name="validate_length">%1$s deve ter %2$d caracteres</string>
-
-    <string name="bt_sim">sim</string>
-    <string name="bt_nao">não</string>
-    <string name="bt_confirmar">confirmar</string>
-    <string name="bt_continuar">continuar</string>
-    <string name="bt_cancelar">cancelar</string>
-    <string name="label_menu_new">Novo</string>
-    <string name="label_menu_history">Histórico</string>
+    <string name="label_menu_new">New</string>
+    <string name="label_menu_history">History</string>
     <string name="label_timer_placeholder">25:00</string>
-    <string name="label_date_list_separator_today">Hoje</string>
-    <string name="label_date_list_separator_yesterday">Ontem</string>
-    <string name="label_date_list_separator_this_week">Essa semana</string>
-    <string name="label_date_list_separator_this_month">Esse mês</string>
-    <string name="label_date_list_separator_this_year">Esse ano</string>
-    <string name="label_date_list_separator_older">Mais antigas</string>
-    <string name="label_status_finished">Finalizado</string>
-    <string name="label_status_stopped">Interrompido</string>
-    <string name="label_date_placeholder">1 minuto atrás</string>
-    <string name="notification_running">Pomodoro rodando</string>
-    <string name="label_moments_ago">momentos atrás</string>
+    <string name="label_date_list_separator_today">Today</string>
+    <string name="label_date_list_separator_yesterday">Yesterday</string>
+    <string name="label_status_finished">Finished</string>
+    <string name="label_status_stopped">Stopped</string>
+    <string name="notification_running">Pomodoro is running</string>
+    <string name="label_moments_ago">Moments ago</string>
     <plurals name="label_minutes_ago">
-        <item quantity="one">%d minuto atrás</item>
-        <item quantity="other">%d minutos atrás</item>
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes </item>
     </plurals>
     <plurals name="label_hours_ago">
-        <item quantity="one">%d hora atrás</item>
-        <item quantity="other">%d horas atrás</item>
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
     </plurals>
-
-    <plurals name="label_days_ago">
-        <item quantity="one">%d dia atrás</item>
-        <item quantity="other">%d dias atrás</item>
-    </plurals>
-    <plurals name="label_weeks_ago">
-        <item quantity="one">%d semanas atrás</item>
-        <item quantity="other">%d semanas atrás</item>
-    </plurals>
-    <plurals name="label_months_ago">
-        <item quantity="one">%d mês atrás</item>
-        <item quantity="other">%d meses atrás</item>
-    </plurals>
-    <plurals name="label_years_ago">
-        <item quantity="one">%d ano atrás</item>
-        <item quantity="other">%d anos atrás</item>
-    </plurals>
-
 
 
 </resources>

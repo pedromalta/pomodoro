@@ -1,2 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <!-- GENERIC ERROR -->
+    <string name="error_generic">Erro ao processar solicitação</string>
+
+    <!-- Validations -->
+    <string name="label_menu_new">Novo</string>
+    <string name="label_menu_history">Histórico</string>
+    <string name="label_timer_placeholder">25:00</string>
+    <string name="label_date_list_separator_today">Hoje</string>
+    <string name="label_date_list_separator_yesterday">Ontem</string>
+    <string name="label_status_finished">Finalizado</string>
+    <string name="label_status_stopped">Interrompido</string>
+    <string name="notification_running">Pomodoro rodando</string>
+    <string name="label_moments_ago">Momentos atrás</string>
+    <plurals name="label_minutes_ago">
+        <item quantity="one">%d minuto atrás</item>
+        <item quantity="other">%d minutos atrás</item>
+    </plurals>
+    <plurals name="label_hours_ago">
+        <item quantity="one">%d hora atrás</item>
+        <item quantity="other">%d horas atrás</item>
+    </plurals>
+</resources>
