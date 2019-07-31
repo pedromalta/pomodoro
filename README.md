@@ -15,7 +15,7 @@ To generate bundle for App Store
 ```./gradlew bundleProductionRelease```
 
 Outputs will be located at
-```path/app/build/outputs/apk or path/app/build/outputs/apk/bundle```
+```path/app/build/outputs/apk or path/app/build/outputs/bundle```
 
 
 
