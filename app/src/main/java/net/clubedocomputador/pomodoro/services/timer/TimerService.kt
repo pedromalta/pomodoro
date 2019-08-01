@@ -92,6 +92,7 @@ class TimerService : Service() {
     }
 
     private fun updateNotification(): android.app.Notification {
+        Notification.startChannel(this)
         val notificationIntent = Intent(this, PrincipalActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 634, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
