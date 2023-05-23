@@ -17,12 +17,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 33
     defaultConfig {
         applicationId "net.clubedocomputador.pomodoro"
         minSdkVersion 15
-        targetSdkVersion 29
-        versionCode 7
+        targetSdkVersion 33
+        versionCode 8
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -108,7 +108,7 @@ android {
     flavorDimensions 'tier'
 
     productFlavors {
-        ext.app_version = "0.0.7"
+        ext.app_version = "0.0.8"
         development {
             applicationId = "net.clubedocomputador.pomodoro.dev"
             dimension "tier"

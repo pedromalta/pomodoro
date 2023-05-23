@@ -33,9 +33,9 @@ object Helpers {
         fun message(context: Context, message: String?, show: Boolean = true): Toast {
             val toast = Toast.makeText(context, processBreakLines(message), Toast.LENGTH_LONG)
             val view = toast.view
-            view.setBackgroundResource(R.drawable.bg_radius_dark)
-            val text = view.findViewById<TextView>(android.R.id.message)
-            text.setTextColor(ContextCompat.getColor(context, android.R.color.white))
+            view?.setBackgroundResource(R.drawable.bg_radius_dark)
+            val text = view?.findViewById<TextView>(android.R.id.message)
+            text?.setTextColor(ContextCompat.getColor(context, android.R.color.white))
             if (show) {
                 toast.show()
             }
