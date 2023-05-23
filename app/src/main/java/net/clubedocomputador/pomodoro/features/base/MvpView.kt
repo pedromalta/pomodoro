@@ -1,4 +1,4 @@
-package  net.clubedocomputador.pomodoro.features.base
+package net.clubedocomputador.pomodoro.features.base
 
 /**
  * Base interface that any class that wants to act as a View in the MVP (Model View Presenter)

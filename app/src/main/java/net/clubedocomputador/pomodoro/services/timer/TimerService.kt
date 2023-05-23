@@ -24,7 +24,6 @@ import net.clubedocomputador.pomodoro.util.Helpers
 import org.joda.time.DateTime
 import java.util.concurrent.TimeUnit
 
-
 class TimerService : Service() {
 
     companion object : ITimerProvider {
@@ -47,11 +46,9 @@ class TimerService : Service() {
             private set
     }
 
-
     private var disposable = CompositeDisposable()
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
         intent?.apply {
             when (this.action) {
                 START_ACTION -> startService()
@@ -61,7 +58,6 @@ class TimerService : Service() {
 
         return START_STICKY
     }
-
 
     private fun startService() {
         if (isRunning || PomodoroApp.persistence.pomodoro == null) return
@@ -73,7 +69,6 @@ class TimerService : Service() {
 
         startForeground(Notification.NOTIFICATION_ID, notification)
         startUpdateTimer()
-
     }
 
     private fun startUpdateTimer() {
@@ -81,14 +76,14 @@ class TimerService : Service() {
         disposable = CompositeDisposable()
         Single.create<String> {
             val remainingTime = PomodoroApp.persistence.pomodoro?.elapsedTime
-                    ?: Config.POMODORO_MINUTES_STRING
+                ?: Config.POMODORO_MINUTES_STRING
             it.onSuccess(remainingTime)
         }.delaySubscription(1, TimeUnit.SECONDS).repeat()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    checkTime()
-                    updateNotification()
-                }.addTo(disposable)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                checkTime()
+                updateNotification()
+            }.addTo(disposable)
     }
 
     private fun updateNotification(): android.app.Notification {
@@ -97,25 +92,25 @@ class TimerService : Service() {
         val pendingIntent = PendingIntent.getActivity(this, 634, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notification = NotificationCompat.Builder(this, Notification.NOTIFICATION_CHANNEL)
-                .setContentTitle(getString(R.string.notification_running))
-                .setContentText(PomodoroApp.persistence.pomodoro?.elapsedTime
-                        ?: Config.POMODORO_MINUTES_STRING)
-                .setSmallIcon(R.drawable.icon_pomodoro)
-                .setContentIntent(pendingIntent)
-                .setOngoing(true).build()
-        //avoid adding notification if we are stopping
+            .setContentTitle(getString(R.string.notification_running))
+            .setContentText(
+                PomodoroApp.persistence.pomodoro?.elapsedTime
+                    ?: Config.POMODORO_MINUTES_STRING,
+            )
+            .setSmallIcon(R.drawable.icon_pomodoro)
+            .setContentIntent(pendingIntent)
+            .setOngoing(true).build()
+        // avoid adding notification if we are stopping
         if (isRunning) {
             Notification.updateNotification(
-                    this@TimerService,
-                    Notification.NOTIFICATION_ID,
-                    notification)
+                this@TimerService,
+                Notification.NOTIFICATION_ID,
+                notification,
+            )
         }
 
         return notification
-
-
     }
-
 
     private fun stopService() {
         isRunning = false
@@ -133,7 +128,6 @@ class TimerService : Service() {
             notifyFinish()
             stopService()
         }
-
     }
 
     private fun finishPomodoro(pomodoro: Pomodoro) {
@@ -149,13 +143,8 @@ class TimerService : Service() {
         Helpers.Notifications.startSound(this)
     }
 
-
     @Nullable
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
-
-
 }
-
-

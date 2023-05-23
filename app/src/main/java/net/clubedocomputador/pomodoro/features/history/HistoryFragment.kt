@@ -53,7 +53,6 @@ class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
         })
     }
 
-
     private fun loadMoreHistoryItens() {
         val historyList = presenter.getList(lastDate)
         if (historyList.isNotEmpty()) {
@@ -77,12 +76,10 @@ class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
     @Suppress("UNUSED")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvents(event: Events) {
-
         when (event.action) {
             Events.FINISHED_POMODORO, Events.STOPPED_POMODORO -> resetList()
         }
     }
-
 
     override fun getTabTitle(context: Context): String {
         return context.getString(R.string.label_menu_history)
@@ -96,5 +93,4 @@ class HistoryFragment : BaseFragment(), HistoryMvpView, PrincipalTabbedView {
         presenter.detachView()
         super.onDestroy()
     }
-
 }

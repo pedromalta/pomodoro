@@ -12,19 +12,19 @@ import java.util.concurrent.TimeUnit
 fun <T> Single<T>.retryWithExponentialDelay(times: Int, exponentialDelay: Int): Single<T> {
     return this.retryWhen { errors: Flowable<Throwable> ->
         errors.zipWith(
-                Flowable.range(0, times),
-                BiFunction<Throwable, Int, Int> { error: Throwable, retryCount: Int ->
-                    //ComputedErrors.compute(ComputeError(error))
-                    if (retryCount >= times - 1) {
-                        throw error
-                    } else {
-                        retryCount
-                    }
+            Flowable.range(0, times),
+            BiFunction<Throwable, Int, Int> { error: Throwable, retryCount: Int ->
+                // ComputedErrors.compute(ComputeError(error))
+                if (retryCount >= times - 1) {
+                    throw error
+                } else {
+                    retryCount
                 }
+            },
         ).concatMap { retryCount: Int ->
             Flowable.timer(
-                    exponentialDelay * retryCount.toLong(),
-                    TimeUnit.MILLISECONDS
+                exponentialDelay * retryCount.toLong(),
+                TimeUnit.MILLISECONDS,
             )
         }
     }

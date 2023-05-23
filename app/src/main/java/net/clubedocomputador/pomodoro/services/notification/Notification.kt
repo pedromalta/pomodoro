@@ -10,7 +10,6 @@ object Notification {
     const val NOTIFICATION_ID = 4435
     const val NOTIFICATION_CHANNEL = "pomodoro_channel"
 
-
     fun startChannel(context: Context) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val channel = NotificationChannel(NOTIFICATION_CHANNEL, "Pomodoro", NotificationManager.IMPORTANCE_LOW)
@@ -23,7 +22,4 @@ object Notification {
         val mNotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         mNotificationManager.notify(notificationId, notification)
     }
-
-
 }
-

@@ -18,6 +18,4 @@ class PersistenceProvider {
     init {
         pomodoro = Pomodoro().queryLast { equalTo("status", Pomodoro.Status.Running.value) }
     }
-
-
 }

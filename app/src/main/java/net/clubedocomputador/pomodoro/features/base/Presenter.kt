@@ -1,4 +1,4 @@
-package  net.clubedocomputador.pomodoro.features.base
+package net.clubedocomputador.pomodoro.features.base
 
 /**
  * Every presenter in the app must either implement this interface or extend BasePresenter

@@ -11,7 +11,7 @@ import androidx.core.widget.ImageViewCompat
 import net.clubedocomputador.pomodoro.R
 import org.jetbrains.anko.imageResource
 
-class TimerSmileView : ImageView{
+class TimerSmileView : ImageView {
 
     constructor(context: Context) : super(context)
 
@@ -23,24 +23,23 @@ class TimerSmileView : ImageView{
         imageResource = R.drawable.smile
         showInactive()
     }
-    fun hide(){
+    fun hide() {
         visibility = View.INVISIBLE
         setColor(R.color.grey)
     }
 
-    fun showActive(){
+    fun showActive() {
         visibility = View.VISIBLE
         setColor(R.color.red)
-
     }
 
-    fun showInactive(){
+    fun showInactive() {
         visibility = View.VISIBLE
         setColor(R.color.grey)
     }
 
-    fun reactToTimer(timer: String, isRunning: Boolean){
-        if (timer.length == 5 && timer.substring(3,5) == "00"){
+    fun reactToTimer(timer: String, isRunning: Boolean) {
+        if (timer.length == 5 && timer.substring(3, 5) == "00") {
             if (isRunning) {
                 showActive()
             } else {
@@ -51,9 +50,8 @@ class TimerSmileView : ImageView{
         }
     }
 
-    private fun setColor(@ColorRes color: Int){
+    private fun setColor(@ColorRes color: Int) {
         val colorResource = ContextCompat.getColor(context, color)
         ImageViewCompat.setImageTintList(this, ColorStateList.valueOf(colorResource))
     }
-
 }

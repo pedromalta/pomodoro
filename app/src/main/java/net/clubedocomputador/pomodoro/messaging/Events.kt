@@ -3,9 +3,9 @@ package net.clubedocomputador.pomodoro.messaging
 import org.greenrobot.eventbus.EventBus
 
 data class Events(
-        val action: String,
-        var message: String? = null,
-        var sticky: Boolean = false
+    val action: String,
+    var message: String? = null,
+    var sticky: Boolean = false,
 ) {
     init {
         if (sticky) {
@@ -24,4 +24,3 @@ data class Events(
         const val APP_BACKGROUND = "app_background"
     }
 }
-

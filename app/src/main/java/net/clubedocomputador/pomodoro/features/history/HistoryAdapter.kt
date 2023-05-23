@@ -49,30 +49,30 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
     private fun processList(pomodoros: List<PomodoroHistory>) {
         val now = DateTime.now()
         for (pomodoro in pomodoros) {
-
-            //First Today
+            // First Today
             if (Helpers.Dates.isToday(now, pomodoro.finish.toDateTime()) && separatorToday) {
                 separatorToday = false
                 history.add(tranformPomodoroToHistoryItem(pomodoro, TODAY))
                 continue
             }
-            //First Yesterday
+            // First Yesterday
             if (Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime()) && separatorYesterday) {
                 separatorYesterday = false
                 history.add(tranformPomodoroToHistoryItem(pomodoro, YESTERDAY))
                 continue
             }
-            //First of each other days
-            if (!Helpers.Dates.isToday(now, pomodoro.finish.toDateTime()) //not today
-                    && !Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime())//not yesterday
-                    && (lastDates.isEmpty() || !Helpers.Dates.isToday(lastDates.last(), pomodoro.finish.toDateTime()))) //not last date we separated
-            {
-                lastDates.add(pomodoro.finish.toDateTime().withTimeAtStartOfDay())
-                history.add(tranformPomodoroToHistoryItem(pomodoro, DATE))
-                continue
-            }
+            // First of each other days
+            if (!Helpers.Dates.isToday(now, pomodoro.finish.toDateTime()) && // not today
+                !Helpers.Dates.isYesterday(now, pomodoro.finish.toDateTime()) && // not yesterday
+                (lastDates.isEmpty() || !Helpers.Dates.isToday(lastDates.last(), pomodoro.finish.toDateTime()))
+            ) // not last date we separated
+                {
+                    lastDates.add(pomodoro.finish.toDateTime().withTimeAtStartOfDay())
+                    history.add(tranformPomodoroToHistoryItem(pomodoro, DATE))
+                    continue
+                }
 
-            //No Separator
+            // No Separator
             history.add(tranformPomodoroToHistoryItem(pomodoro, NO_SEPARATOR))
         }
     }
@@ -82,12 +82,12 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
         val time = Helpers.Dates.getElapsedHistoryTimeItem(pomodoro.finish.toDateTime())
 
         return HistoryItem(
-                elapsedTimer,
-                pomodoro.finish,
-                pomodoro.status,
-                time,
-                separator)
-
+            elapsedTimer,
+            pomodoro.finish,
+            pomodoro.status,
+            time,
+            separator,
+        )
     }
 
     fun swap(list: List<PomodoroHistory>) {
@@ -103,7 +103,6 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
         private val textViewDate: TextView = itemView.findViewById(R.id.text_view_date)
 
         fun bind(context: Context, item: HistoryItem) {
-
             textViewTimer.text = item.timer
             textViewSeparator.visibility = if (item.separator == NO_SEPARATOR) View.GONE else View.VISIBLE
 
@@ -125,13 +124,7 @@ class HistoryAdapter(private val context: Context) : RecyclerView.Adapter<Histor
                 MOMENTS -> textViewDate.text = context.getText(R.string.label_moments_ago)
                 MINUTE -> textViewDate.text = context.resources.getQuantityString(R.plurals.label_minutes_ago, item.time.timeCount, item.time.timeCount)
                 HOUR -> textViewDate.text = context.resources.getQuantityString(R.plurals.label_hours_ago, item.time.timeCount, item.time.timeCount)
-
             }
         }
-
     }
-
-
 }
-
-

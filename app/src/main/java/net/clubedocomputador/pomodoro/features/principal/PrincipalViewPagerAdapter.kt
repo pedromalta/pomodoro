@@ -6,10 +6,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
 class PrincipalViewPagerAdapter(
-        private val context: Context,
-        fragmentManager: FragmentManager,
-        private val fragments: Array<Fragment>) : FragmentPagerAdapter(fragmentManager) {
-
+    private val context: Context,
+    fragmentManager: FragmentManager,
+    private val fragments: Array<Fragment>,
+) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {
         return fragments[position]

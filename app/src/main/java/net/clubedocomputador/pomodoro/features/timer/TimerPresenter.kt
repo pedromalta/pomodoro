@@ -34,7 +34,6 @@ class TimerPresenter : BasePresenter<TimerMvpView>() {
             pomodoro.save()
             PomodoroApp.persistence.pomodoro = null
             Analytics.logEvent(Analytics.EVENT_TIMER_STOP, pomodoro.elapsedTime)
-
         }
         mvpView?.stoppedPomodoro()
         Events(Events.STOPPED_POMODORO)
@@ -47,5 +46,4 @@ class TimerPresenter : BasePresenter<TimerMvpView>() {
     fun isPomodoroRunning(): Boolean {
         return PomodoroApp.persistence.pomodoro != null
     }
-
 }

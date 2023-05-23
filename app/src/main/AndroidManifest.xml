@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tool"
-    package="net.clubedocomputador.pomodoro">
+    xmlns:tools="http://schemas.android.com/tool">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -25,7 +24,7 @@
         <activity
             android:name="net.clubedocomputador.pomodoro.features.splash.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
+            android:exported="true"
             android:theme="@style/Pomodoro.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

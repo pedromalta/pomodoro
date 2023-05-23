@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,7 +22,6 @@ import org.greenrobot.eventbus.ThreadMode
 import org.jetbrains.anko.image
 import org.jetbrains.anko.textColor
 import java.util.concurrent.TimeUnit
-
 
 class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
 
@@ -54,21 +52,19 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
     private fun setupTextViewTimer() {
         textViewTimer.text = presenter.getTimer()
         startTimerUpdates()
-
     }
-
 
     private fun startTimerUpdates() {
         imageViewSmile.showActive()
         Single.create<String> { it.onSuccess(presenter.getTimer()) }
-                .delaySubscription(1, TimeUnit.SECONDS)
-                .repeatUntil { !presenter.isPomodoroRunning() }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { remainingTime ->
-                    //TODO animate?
-                    textViewTimer.text = remainingTime
-                    imageViewSmile.reactToTimer(remainingTime, presenter.isPomodoroRunning())
-                }.addTo(presenter.disposable)
+            .delaySubscription(1, TimeUnit.SECONDS)
+            .repeatUntil { !presenter.isPomodoroRunning() }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { remainingTime ->
+                // TODO animate?
+                textViewTimer.text = remainingTime
+                imageViewSmile.reactToTimer(remainingTime, presenter.isPomodoroRunning())
+            }.addTo(presenter.disposable)
     }
 
     private fun setupButtonStartStop() {
@@ -94,7 +90,6 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
             textViewTimer.textColor = ContextCompat.getColor(this, R.color.red)
             buttonStartStop.image = ContextCompat.getDrawable(this, R.drawable.ic_stop_white_32dp)
             imageViewSmile.reactToTimer(presenter.getTimer(), presenter.isPomodoroRunning())
-
         }
     }
 
@@ -103,7 +98,6 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
             textViewTimer.textColor = ContextCompat.getColor(this, R.color.grey)
             buttonStartStop.image = ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_white_32dp)
             imageViewSmile.showInactive()
-
         }
     }
 
@@ -120,7 +114,6 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
     @Suppress("UNUSED")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvents(event: Events) {
-
         when (event.action) {
             Events.FINISHED_POMODORO -> stoppedPomodoro()
         }
@@ -138,5 +131,4 @@ class TimerFragment : BaseFragment(), TimerMvpView, PrincipalTabbedView {
         presenter.detachView()
         super.onDestroy()
     }
-
 }

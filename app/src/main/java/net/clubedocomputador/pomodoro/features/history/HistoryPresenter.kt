@@ -18,12 +18,10 @@ class HistoryPresenter : BasePresenter<HistoryMvpView>() {
             }
             sort("finish", Sort.DESCENDING)
             limit(30)
-            //get 30 most recent pomodoros after the fromDate parameter or of all if null
+            // get 30 most recent pomodoros after the fromDate parameter or of all if null
         }.map {
-            //transform to immutable model for easier use further
+            // transform to immutable model for easier use further
             PomodoroHistory(it.start, it.finish!!, PomodoroHistory.Status.fromInt(it.status)!!)
         }
     }
-
-
 }

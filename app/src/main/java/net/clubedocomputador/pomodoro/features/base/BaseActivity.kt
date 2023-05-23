@@ -1,9 +1,7 @@
 package net.clubedocomputador.pomodoro.features.base
 
-import android.content.Context
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 import net.clubedocomputador.pomodoro.R
 import net.clubedocomputador.pomodoro.messaging.Events
 import net.clubedocomputador.pomodoro.util.Helpers
@@ -29,7 +27,6 @@ abstract class BaseActivity : AppCompatActivity() {
         Helpers.Messages.message(this, this.getString(R.string.error_generic))
     }
 
-
     override fun onStart() {
         super.onStart()
         if (!EventBus.getDefault().isRegistered(this)) {
@@ -44,18 +41,10 @@ abstract class BaseActivity : AppCompatActivity() {
             EventBus.getDefault().unregister(this)
         }
         super.onStop()
-
     }
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessage(message: String) {
         Log.i("ACTION", message)
     }
-
-    override fun attachBaseContext(newBase: Context) {
-        super.attachBaseContext(ViewPumpContextWrapper.wrap(newBase))
-    }
-
-
 }

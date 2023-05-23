@@ -18,9 +18,7 @@ import org.joda.time.*
 import org.joda.time.format.PeriodFormatterBuilder
 import java.util.*
 
-
 object Helpers {
-
 
     object Messages {
         private fun processBreakLines(message: String?): String? {
@@ -49,7 +47,6 @@ object Helpers {
 
     object Dates {
 
-
         fun dateFormat(context: Context, date: Date): String {
             return DateFormat.getDateFormat(context).format(date).toString()
         }
@@ -67,7 +64,6 @@ object Helpers {
             return date.withTimeAtStartOfDay().isEqual(oneDayBeforeDate)
         }
 
-
         fun getDurationString(start: Date, finished: Date): String {
             val elapsed = Seconds.secondsBetween(finished.toDateTime(), start.toDateTime())
             return getDurationString(elapsed.seconds)
@@ -76,14 +72,13 @@ object Helpers {
         fun getDurationString(durationSeconds: Int): String {
             val period = Period(durationSeconds * 1000L)
             val formatted = PeriodFormatterBuilder()
-                    .printZeroAlways()
-                    .minimumPrintedDigits(2)
-                    .appendMinutes()
-                    .appendSeparator(":")
-                    .appendSeconds()
-                    .toFormatter()
+                .printZeroAlways()
+                .minimumPrintedDigits(2)
+                .appendMinutes()
+                .appendSeparator(":")
+                .appendSeconds()
+                .toFormatter()
             return formatted.print(period)
-
         }
 
         fun getElapsedHistoryTimeItem(finishTime: DateTime): HistoryItemTime {
@@ -101,7 +96,6 @@ object Helpers {
             }
             return HistoryItemTime(0, HistoryItemTime.TimeType.TIME)
         }
-
     }
 
     object Notifications {
@@ -119,8 +113,6 @@ object Helpers {
                 }
                 prepareAsync()
             }
-
-
         }
 
         fun startVibrationShort(context: Context, time: Long = 450) {
@@ -144,5 +136,4 @@ object Helpers {
             vibrator?.cancel()
         }
     }
-
 }

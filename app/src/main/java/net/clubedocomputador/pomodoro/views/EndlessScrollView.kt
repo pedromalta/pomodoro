@@ -1,6 +1,5 @@
 package net.clubedocomputador.pomodoro.views
 
-
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 

@@ -1,4 +1,4 @@
-package  net.clubedocomputador.pomodoro.features.base
+package net.clubedocomputador.pomodoro.features.base
 
 import io.reactivex.disposables.CompositeDisposable
 
@@ -31,6 +31,4 @@ open class BasePresenter<T : MvpView> : Presenter<T> {
     }
 
     private class MvpViewNotAttachedException internal constructor() : RuntimeException("Please call Presenter.attachView(MvpView) before" + " requesting data to the Presenter")
-
-
 }

@@ -39,7 +39,6 @@ abstract class BaseFragment : androidx.fragment.app.DialogFragment() {
         }
     }
 
-
     override fun onStart() {
         super.onStart()
         if (!EventBus.getDefault().isRegistered(this)) {
@@ -56,8 +55,6 @@ abstract class BaseFragment : androidx.fragment.app.DialogFragment() {
 
     @Subscribe
     fun onMessage(message: String) {
-        //metodo necessario pois nem toda classe filho utiliza o eventbus
+        // metodo necessario pois nem toda classe filho utiliza o eventbus
     }
-
-
 }

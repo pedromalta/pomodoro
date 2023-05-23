@@ -31,7 +31,8 @@ open class Pomodoro : RealmObject() {
     enum class Status(val value: Int) {
         Running(0),
         Finished(1),
-        Stopped(2);
+        Stopped(2),
+        ;
 
         companion object {
             private val map = values().associateBy(Status::value)

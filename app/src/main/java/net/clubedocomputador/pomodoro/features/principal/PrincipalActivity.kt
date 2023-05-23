@@ -13,9 +13,7 @@ import net.clubedocomputador.pomodoro.services.timer.TimerService
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-
 class PrincipalActivity : BaseActivity(), PrincipalMvpView {
-
 
     companion object {
         var activityVisibility = false
@@ -39,29 +37,28 @@ class PrincipalActivity : BaseActivity(), PrincipalMvpView {
 
         setupViewPagerAdapter()
         setupTabLayout()
-
     }
 
     private fun setupViewPagerAdapter() {
-        viewPager.adapter = PrincipalViewPagerAdapter(this, supportFragmentManager, arrayOf(timerFragment, historyFragment))
+        viewPager.adapter = PrincipalViewPagerAdapter(
+            this,
+            supportFragmentManager,
+            arrayOf(timerFragment, historyFragment),
+        )
     }
-
 
     private fun setupTabLayout() {
         tabLayout.setupWithViewPager(viewPager)
     }
 
-
     @Suppress("UNUSED")
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvents(event: Events) {
-
         when (event.action) {
             Events.STARTED_POMODORO -> TimerService.start(applicationContext)
             Events.STOPPED_POMODORO -> TimerService.stop(applicationContext)
         }
     }
-
 
     override fun onBackPressed() {
         if (viewPager.currentItem == 0) {
@@ -69,7 +66,6 @@ class PrincipalActivity : BaseActivity(), PrincipalMvpView {
         } else {
             viewPager.currentItem = viewPager.currentItem - 1
         }
-
     }
 
     override fun onStart() {
@@ -80,13 +76,10 @@ class PrincipalActivity : BaseActivity(), PrincipalMvpView {
     override fun onStop() {
         activityVisibility = false
         super.onStop()
-
     }
 
     override fun onDestroy() {
         presenter.detachView()
         super.onDestroy()
     }
-
-
 }
